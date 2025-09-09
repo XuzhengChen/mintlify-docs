@@ -130,21 +130,31 @@ PyCharm 是 JetBrains 开发的专业 Python 集成环境，功能更强大，�
 
 ---
 
-#### Windows
+### Windows
 
-1. **安装 Python**
+1. **安装 Python解释器**
+
    - 步骤同 VSCode 部分。
 
 2. **安装 PyCharm**
-   - 前往 [PyCharm 官网](https://www.jetbrains.com/pycharm/download/) 下载 Windows 版本（选择 *Community* 免费版）。
-   - 安装完成后，打开 PyCharm 并新建项目。
+
+   - 前往 [PyCharm 官网](https://www.jetbrains.com/zh-cn/pycharm/download/?section=windows) 下载 Windows 版本，在官网内点击左侧绿色的**下载**按钮。
+   - 安装过程中，安装目录推荐选择D盘的一个文件夹~~（因为C盘存储空间经常容易不够）~~。下一步中的创建桌面快捷方式、更新PATH变量、更新上下文菜单、创建关联这4个选项的方框**全部打勾**；再下一步不需要任何操作，直接点击**安装**即可。
 
 3. **配置运行**
-   - 新建文件 `hello.py`，输入：
-     ```python
-     print("Hello, Python!")
-     ```
-   - 点击运行，若能正确输出，则配置完成。
+
+   * PyCharm有些功能需要学生认证才能使用，但可以直接使用的的功能对于本课程来说已经足够。如果你想使用其全部功能，可以参考这个 [链接](https://blog.csdn.net/m0_63451989/article/details/131743070) 的教程完成学生认证。
+   * 打开PyCharm，如果中央有**skip import**选项，点击即可。点击中央的**New Project（新建项目）**上方的+号按钮。
+   * 点击左侧上方的**Pure Python(纯Python)**，在右侧的Location（位置）中选择一个文件夹路径，你以后编写的Python代码将存储在该文件下面，同样也推荐选择D盘的一个文件夹。
+   * 在Interpreter type（解释器类型）中点击**Project venv（项目 venv）**，在Python version中选择你在第1步你安装的Python解释器所在的文件夹下面的**python.exe文件**（不是pythonw.exe等文件），之后点击下方的**Create（创建）**按钮。
+   * 第一次完成上述创建项目操作后，PyCharm可能会在右下角提示你通过重启PyCharm程序来改成中文模式，你可以根据自己的喜好来选择是否改成中文模式。
+   * 在左上角项目所在的行中点击**+号**（或者在左上角的你名字为你刚刚选择的文件夹路径的那一行，右键点击，然后选择弹出来的**新建**），点击**Python文件**，在“名称”输入栏中输入**hello.py**，按Enter回车键创建代码文件成功。在编辑器内部输入：
+
+   ```python
+   print("Hello, World!")
+   ```
+
+   - 点击最上方靠近中间的**绿色三角符号**来运行，如果在下方有输出**Hello,  World!**，则配置完成。
 
 ---
 
