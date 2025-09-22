@@ -1,3 +1,12 @@
+在开始学习之前，你需要在电脑上配置好 Python 环境。
+
+我们推荐使用 **VSCode** 或 **PyCharm**，任选其一即可。 
+
+VSCode 是微软推出的轻量级编辑器，结合 Miniconda可以方便地管理 Python 版本和依赖。PyCharm 是 JetBrains 开发的专业 Python 集成环境，功能更强大，适合深入学习。
+
+根据你的电脑是Mac还是Windows，你只需要在左侧四个文档中选择一个进行配置即可。
+
+  
 ### 0. 教学网相关资源
 - 你可以在【教学网】-【教学内容】-【第3讲——第1章程序设计与Python导引】-【本讲实例、素材及课程资源】中获取往年关于VSCode和PyCharm安装的指导。此外，此处还有OpenJudge的相关使用规则。
 
@@ -5,15 +14,7 @@
 - 说明 PATH 没有配置好，请参考 Windows 部分的 **检查系统路径 (PATH)** 步骤。
 
 ### 2. VSCode 里运行时找不到解释器怎么办？
-- 按 **Ctrl+Shift+P** → 输入 **Python: Select Interpreter** → 选择 `pycourse` 环境。
+- 按 **Ctrl+Shift+P** → 输入 **Python: Select Interpreter** → 选择 `base` 环境。
 
-### 3. Mac 上为什么用 `python3` 而不是 `python`？
-- 因为 Mac 系统自带一个老版本的 `python`（通常是 2.x），为了避免冲突，Miniconda 默认用 `python3`。
-
-### 4. 我可以不用 Miniconda，直接装 Python 吗？
+### 3. 我可以不用 Miniconda，直接装 Python 吗？
 - 可以，但推荐 Miniconda，因为它能方便地管理环境，不会弄乱系统自带的 Python。
-
-### 5. 如何确认我的配置成功？
-- 在 VSCode 新建 `hello.py` 文件，写入：
-  ```python
-  print("Hello, Python!")

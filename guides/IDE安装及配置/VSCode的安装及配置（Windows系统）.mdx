@@ -5,7 +5,7 @@
    - **安装时一定要注意：**
      - 勾选 *Add Miniconda3 to PATH environment variable*（如果有提示）。
      - 或者选择 *Register Miniconda as the system Python 3.11*。
-   - 安装完成后，打开 **命令提示符 (CMD)** 或 **Anaconda Prompt**，输入：
+   - 安装完成后，按`win + r`输入`cmd` 然后回车，打开 **命令提示符 (CMD)**，输入：
      ```bash
      conda --version
      ```
@@ -22,28 +22,21 @@
         C:\Users\<你的用户名>\Miniconda3\Scripts
         C:\Users\<你的用户名>\Miniconda3\Library\bin
         ```
-     4. 点击 **确定** 保存，重新打开 CMD 测试：
+     4. 依次点击 **确定** 保存，重新打开 CMD 测试：
         ```bash
         conda --version
         ```
 
-3. **创建 Python 环境**
-   - 在 CMD 或 Anaconda Prompt 输入：
-     ```bash
-     conda create -n pycourse python=3.11
-     conda activate pycourse
-     ```
-
-4. **安装 VSCode**
+3. **安装 VSCode**
    - 前往 [VSCode 官网](https://code.visualstudio.com/) 下载 Windows 版本并安装。
    - 在 VSCode 扩展市场搜索并安装 **Python** 插件。
 
-5. **配置 VSCode 使用 Conda 环境**
+4. **配置 VSCode 使用 Conda 环境**
    - 打开一个项目文件夹。
    - 新建文件 `hello.py`，写入：
      ```python
      print("Hello, Python from Conda!")
      ```
    - 按下 **Ctrl+Shift+P** → 搜索并选择 **Python: Select Interpreter**。
-   - 选择 `pycourse` 环境。
+   - 选择 `base` 环境。
    - 点击运行，若能正确输出，说明环境配置完成。

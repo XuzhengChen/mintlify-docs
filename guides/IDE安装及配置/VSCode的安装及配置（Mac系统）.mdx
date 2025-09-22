@@ -19,27 +19,16 @@
     conda -V
     ```
 
-
-2. **创建 Python 环境**
-   - 在终端中输入：
-     ```bash
-     conda create -n pycourse python=3.11
-     conda activate pycourse
-     ```
-     这样我们就新建了一个名为 `pycourse` 的 Python 3.11 环境。
-
-3. **安装 VSCode**
+2. **安装 VSCode**
    - 前往 [VSCode 官网](https://code.visualstudio.com/) 下载并安装。
    - 打开 VSCode，在扩展（Extensions）中搜索并安装 **Python** 插件。
 
 4. **配置 VSCode 使用 Conda 环境**
-   - 打开 VSCode，进入 `hello.py` 文件。
+   - 打开 VSCode，新建 `hello.py` 文件并进入。
    - 按下快捷键 **Cmd+Shift+P**，输入并选择 **Python: Select Interpreter**。
-   - 选择 `pycourse` 环境（通常路径里会带有 miniconda3/envs/pycourse）。
-   - 新建文件 `hello.py`，输入：
+   - 选择 `base` 环境（通常路径里会带有 miniconda3/envs/base）。
+   - 在`hello.py`文件中输入：
      ```python
      print("Hello, Python from Conda!")
      ```
    - 点击运行，若能正确输出，说明配置成功。
-
----
