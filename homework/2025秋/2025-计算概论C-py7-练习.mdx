@@ -1,0 +1,356 @@
+## 题集链接
+<Card
+  title="OpenJudge/计算概论C(py)/2025-计算概论C-py7-练习"
+  icon="code"
+  href="http://jgcq.openjudge.cn/2025jgchw7lx/"
+  arrow="true"
+  horizontal
+>
+</Card>
+
+## 01：递归复习法
+
+### 题目描述
+据说，学渣复习期末考试，要用递归复习法，即当他复习知识点A的时候，他发现理解知识点A必须先理解知识点B和知识点C，于是他先去学习知识点B和知识点C，当他复习知识点B的时候，又发现理解知识点B必须先理解知识点D与知识点E，又得先去复习知识点D和知识点E。
+
+**输入**
+第一行是一个整数m，代表数据组数，1 < = m < = 25
+之后m行，每行是一组数据，即一个整数n，1 < = n < = 25
+**输出**
+对每组数据，输出小明复习知识点n所需要的时间
+
+### 题解
+**思路**
+记复习知识点 n 需要时间为 f(n)，则 f(n) = f(n-1) + f(n-2) + n，并且有 f(1) = 1, f(2) = 2。
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 01：递归复习法 Solution 1 lines icon="python"
+    # Solution 1
+    # 使用列表存储计算结果，优化时间复杂度
+    # 题目中给出 n <= 25，因此可以预先计算并存储所有结果，实现 m 次的 O(1) 速度查询
+    f = [0, 1, 2]
+    for i in range(3, 26):
+      f.append(f[-1] + f[-2] + i)
+    m = int(input())
+    for _ in range(m):
+      n = int(input())
+      print(f[n])
+    ```
+  </Tab>
+</Tabs>
+
+## 02：汉诺塔问题
+
+### 题目描述
+古代有一个梵塔，塔内有三个座A、B、C，A座上有n个盘子，盘子大小不等，大的在下，小的在上。三个座都可以用来放盘子。有一个和尚想把这n个盘子从A座移到C座，但每次只能允许移动一个盘子，并且在移动过程中，3个座上的盘子始终保持大盘在下，小盘在上。输入盘子数目n，要求输出移动的步骤。
+
+**输入**
+盘子数目n ( n < 8)
+**输出**
+移动方案
+
+### 题解
+**思路**
+假设需要将 n 个盘子从 src（source） 盘子移动到 dst（destination，盘子目标位置），中间借助 mid（middle，盘子中间媒介），则可以分解为以下步骤：
+（1） 将 n-1 个盘子从 src 移动到 mid，中间借助 dst
+（2） 将第 n 个盘子从 src 移动到 dst
+（3） 将 n-1 个盘子从 mid 移动到 dst，中间借助 src
+
+**知识点**
+<ResponseField name="递归" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 02：汉诺塔问题 Solution 1 lines icon="python"
+    # Solution 1
+    def move(n, src, dst, mid):
+      """
+      n: 需要移动 n 个盘子
+      src: source，盘子出发位置
+      dst: destination，盘子目标位置
+      mid: middle，盘子中间媒介
+      """
+      if n == 1:
+        print(f'{src}->{dst}')
+      else:
+        move(n - 1, src, mid, dst)
+        print(f'{src}->{dst}')
+        move(n - 1, mid, dst, src)
+
+
+    n = int(input())
+    move(n, 'A', 'C', 'B')
+    ```
+  </Tab>
+</Tabs>
+
+## 03：逃出迷宫
+
+### 题目描述
+"Boom!" 小锅一觉醒来发现自己落入了一个N*N(2 < = N < = 20)的迷宫之中，为了逃出这座迷宫，小锅需要从左上角(0, 0)处的入口跑到右下角(N-1, N-1)处的出口逃出迷宫。由于小锅每一步都想缩短和出口之间的距离，所以他只会向右和向下走。假设我们知道迷宫的地图（以0代表通路，以1代表障碍），请你编写一个程序，判断小锅能否从入口跑到出口？
+
+**输入**
+第一行为一个整数N，代表迷宫的大小
+接下来N行为迷宫地图，迷宫地块之间以空格分隔
+输入保证(0, 0)和(N - 1, N - 1)处可以通过
+**输出**
+一行字符串，如果能跑到出口则输出Yes，否则输出No
+
+### 题解
+**思路**
+用一个二维列表来存储每个点是否可以到达，则有：
+（1）初始时起点可以到达；
+（2）对于每一个点，该点能到达的条件是该点没有障碍，且该点的上方或左方至少有一个点可以到达
+然后从起点开始，遍历所有点，最后判断终点是否可以到达即可。
+
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 03：逃出迷宫 Solution 1 lines icon="python"
+    # Solution 1
+    n = int(input())
+    a = [[False for _ in range(n)] for _ in range(n)]
+    a[0][0] = True
+    for i in range(n):
+      b = input().split()
+      for j in range(n):
+        if b[j] == '0':
+          if i > 0:
+            a[i][j] = a[i][j] or a[i - 1][j]
+          if j > 0:
+            a[i][j] = a[i][j] or a[i][j - 1]
+    print('Yes' if a[n - 1][n - 1] else 'No')
+    ```
+  </Tab>
+</Tabs>
+
+## 04：作业文件统计
+
+### 题目描述
+某同学本学期所有计算概论C作业都放在了一个名为“homework”的文件夹下面，这个文件夹下面存放着一系列.py文件和子文件夹，而子文件中又包含着一系列.py文件和子文件夹。‘homework’文件夹下子文件夹的深度不会超过5层，并且所有子文件夹不会重名，而且没有空文件夹，所有文件都有扩展名。请你统计一下这位同学本学期总共编写了多少个.py文件，并以相对路径的方式按一行一个文件名的形式把所有的.py文件的文件名输出。
+
+**输入**
+若干行，输完后输入空行表示所有输入结束。
+每一行包含的信息有，当前文件夹的名字，该文件夹下包含的文件(不一定都是.py文件)和子文件夹，中间用空格分隔。
+**输出**
+若干行，除最后一行外，每一行为一个带有相对路径的.py文件的文件名，输出顺序按照读取顺序。
+最后一行为一个整数，表示统计出的.py文件的个数。
+
+### 题解
+**思路**
+用字典（dict）或类（class）来存储文件的树状结构
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+      ```python 04：作业文件统计 Solution 1 lines icon="python"
+    # Solution 1
+    # 记录每个文件夹的路径
+    paths = {}
+    # 记录每个文件夹的子文件和子文件夹
+    children = {}
+    # 按顺序存储输入的 .py 文件的路径
+    pyFiles = []
+    while True:
+      try:
+        files = input().split()
+        # 空行，输入结束，跳出循环
+        if not files:
+          break
+        myDir = files[0]
+
+        # （1）寻找文件夹的父文件夹
+        parent = None
+        for dirs in children:
+          if myDir in children[dirs]:
+            parent = dirs
+            paths[myDir] = paths[parent] + '\\' + myDir
+            break
+        # 如果没有父文件夹，说明是根目录
+        if not parent:
+          paths[myDir] = myDir
+
+        # （2）记录文件夹的子文件和子文件夹
+        children[myDir] = files[1:]
+
+        # （3）存储每个 .py 文件
+        for child in children[myDir]:
+          if child.endswith('.py'):
+            pyFiles.append(paths[myDir] + '\\' + child)
+
+      except EOFError:
+        break
+
+    print('\n'.join(pyFiles))
+    print(len(pyFiles))
+    ```
+    ```python 04：作业文件统计 Solution 2 lines icon="python"
+    # Solution 2
+    # 文件结点类
+    class FileTree:
+      def __init__(self, name, parent=None):
+        # 文件名字
+        self.name = name
+        # 父文件结点
+        self.parent = parent
+        # 是否为文件夹
+        self.isDir = bool('.' not in name)
+        # 文件路径
+        self.path = name
+        if parent:
+          self.path = parent.path + '\\' + name
+        # 子文件结点
+        self.children = [] if self.isDir else None
+
+      # 深度优先搜索（dfs）查找文件结点
+      def dfs(self, fileName):
+        if self.name == fileName:
+          return self
+        if self.isDir:
+          for child in self.children:
+            res = child.dfs(fileName)
+            if res:
+              return res
+        return None
+
+    # 初始化根文件结点，本题是 homework 文件夹
+    root = None
+    # 按顺序存储输入的 .py 文件的路径
+    res = []
+    while True:
+      try:
+        files = input().split()
+        # 空行，输入结束，跳出循环
+        if not files:
+          break
+        # （1）初始化该文件夹结点
+        fileTree = None
+        if not root:
+          # 没有根结点时，该文件夹就是所有文件的根节点
+          root = FileTree(files[0])
+          fileTree = root
+        else:
+          # 有根结点时，搜索该文件夹的结点
+          fileTree = root.dfs(files[0])
+        # （2）记录文件夹的子文件和子文件夹
+        for i in range(1, len(files)):
+          # 为每个子文件和子文件夹建立结点
+          childFileTree = FileTree(files[i], fileTree)
+          fileTree.children.append(childFileTree)
+          # 存储每个 .py 文件
+          if files[i].endswith('.py'):
+            res.append(childFileTree.path)
+
+      except EOFError:
+        break
+    print('\n'.join(res))
+    print(len(res))
+    ```
+  </Tab>
+</Tabs>
+
+## 05：求斐波那契数列第k项
+
+### 题目描述
+菲波那契数列是指这样的数列: 数列的第一个和第二个数都为1，接下来每个数都等于前面2个数之和。给出一个正整数k，要求菲波那契数列中第k个数是多少。
+
+**输入**
+输入一行，包含一个正整数k（1< =k< =46）。
+**输出**
+输出一行，包含一个正整数，表示菲波那契数列中第k个数。
+
+### 题解
+**思路**
+f(n) = f(n-1) + f(n-2), f(1) = 1, f(2) = 1
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 05：求斐波那契数列第k项 Solution 1 lines icon="python"
+    # Solution 1
+    f1 = 1
+    f2 = 1
+    for i in range(3, int(input()) + 1):
+      f1, f2 = f2, f1 + f2
+    print(f2)
+    ```
+  </Tab>
+</Tabs>
+
+## 06：很简单的整数划分问题
+
+### 题目描述
+将正整数n 表示成一系列正整数之和，n=n1+n2+…+nk, 其中n1>=n2>=…>=nk>=1 ，k>=1 。
+正整数n 的这种表示称为正整数n 的划分。正整数n 的不同的划分个数称为正整数n 的划分数
+
+**输入**
+一个整数N(0 < N < = 30)。
+**输出**
+输出N的划分数。
+
+### 题解
+**思路**
+动态规划问题，设dp[i][j] 表示将整数 i 划分为最大加数不超过 j 的划分数，则有：
+（1）如果最大加数小于 j ，则有 dp[i][j - 1] 种划分。
+（2）如果最大加数等于 j ，则有 dp[i - j][min(j, i - j)] 种划分。
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 06：很简单的整数划分问题 Solution 1 lines icon="python"
+    # Solution 1
+    n = int(input())
+    # 初始化 dp 表，dp[i][j] 表示将整数 i 划分为最大加数不超过 j 的划分数
+    dp = [[0 for j in range(i + 1)] for i in range(n + 1)]
+    # 将 0 划分为 最大加数不超过 0，也是 1 种划分方式
+    dp[0][0] = 1
+
+    # 填充 dp 表
+    for i in range(1, n + 1):
+      # 将整数 i 划分为最大加数不超过 1 的划分，只有分成 i 个 1 相加这 1 种方式
+      dp[i][1] = 1
+      for j in range(2, i + 1):
+        """
+        将整数 i 划分为最大加数不超过 j 的划分
+        （1）如果最大加数小于 j ，则有 dp[i][j - 1] 种划分
+        （2）如果最大加数等于 j ，则有 dp[i - j][min(j, i - j)] 种划分
+        """
+        dp[i][j] = dp[i][j - 1] + dp[i - j][min(j, i - j)]
+
+    print(dp[n][n])
+    ```
+  </Tab>
+</Tabs>
+
+
+---
+<div className="text-center text-xs text-gray-400 mt-10">
+  贡献者：徐志衡
+  上次修改：2025/12/01
+</div>
+---

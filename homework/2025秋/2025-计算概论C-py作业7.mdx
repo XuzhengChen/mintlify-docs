@@ -1,0 +1,205 @@
+## 题集链接
+<Card
+  title="OpenJudge/计算概论C(py)/2025-计算概论C-py作业7"
+  icon="code"
+  href="http://jgcq.openjudge.cn/2025jgchw7/"
+  arrow="true"
+  horizontal
+>
+</Card>
+
+## 01：十进制到八进制
+
+### 题目描述
+把一个十进制正整数转化成八进制。
+
+**输入**
+一行，仅含一个十进制表示的整数a(0 < a < 65536)。
+**输出**
+一行，a的八进制表示。
+
+### 题解
+**思路**
+十进制转 n 进制，利用除 n 取余法，从低位到高位依次计算。
+对于 n = 8 的特殊情况，可以利用内置函数 oct()，返回一个字符串，以 '0o' 开头，用切片去掉即可。
+
+**知识点**
+<ResponseField name="进制转换" type="">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 01：十进制到八进制 Solution 1 lines icon="python"
+    # Solution 1
+    # 手动计算
+    n = int(input())
+    l = []
+    while n != 0:
+      l.append(n % 8)
+      n //= 8
+    # 倒序输出
+    print(''.join(map(str, l[::-1])))
+    ```
+    ```python 01：十进制到八进制 Solution 2 lines icon="python"
+    # Solution 2
+    # 利用内置函数计算
+    n = int(input())
+    # oct()函数将十进制数转化为八进制数，返回一个字符串，以'0o'开头
+    print(oct(n)[2:])
+    ```
+  </Tab>
+</Tabs>
+
+## 02：房间转移（基础版）
+
+### 题目描述
+一个人从一个房间走到另一个房间需要走n米，这个人每步可以走1米或2米，他一共有多少种不同的走路方案？
+
+**输入**
+整数n，n∈[20,30]
+**输出**
+可行的走路方案数，结果对1e9取模
+
+### 题解
+**思路**
+记走 n 米的方案数为 f(n)，走 n 米既可以是走 n - 1 米后又走了 1 米，也可以是走 n - 2 米后一次又走了 2 米，则 f(n) = f(n-1) + f(n-2)，即斐波那契数列，并且有 f(1) = 1，f(2) = 2。
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 02：房间转移（基础版） Solution 1 lines icon="python"
+    # Solution 1
+    # 函数递归计算，易于理解，但时间复杂度较高，不推荐
+    def f(n):
+      if n == 1:
+        return 1
+      elif n == 2:
+        return 2
+      else:
+        return f(n - 1) + f(n - 2)
+
+
+    n = int(input())
+    print(f(n) % 10 ** 9)
+    ```
+    ```python 02：房间转移（基础版） Solution 2 lines icon="python"
+    # Solution 2
+    # 数列递推计算，时间复杂度低，推荐
+    n = int(input())
+    f = [1, 2]
+    for i in range(3, n + 1):
+      f.append(f[-1] + f[-2])
+    print(f[-1] % 10 ** 9)
+    ```
+    ```python 02：房间转移（基础版） Solution 3 lines icon="python"
+    # Solution 3
+    # 递推计算，空间复杂度相比 Solution 2，从 O(n)优化到 O(1)，推荐
+    n = int(input())
+    f1 = 1
+    f2 = 2
+    for i in range(3, n + 1):
+      f1, f2 = f2, f1 + f2
+    print(f2 % 10 ** 9)
+    ```
+  </Tab>
+</Tabs>
+
+## 03：小猴吃桃
+
+### 题目描述
+一只小猴子在第一天摘下若干个桃子，它吃掉了一半，感觉吃得还不过瘾，于是又多吃了一个；
+
+**输入**
+第1行：一个正整数m，表示接下来有m个数据点。
+第2到m+1行：每行给出一个正整数n（1\<=n\<=100）。第一天：小猴摘下所有桃子；第n天，只剩一个桃子。
+**输出**
+m行：每行对应一个输入数据点，输出小猴子第一天摘桃子的总数。
+
+### 题解
+**思路**
+记第 i 天的桃子数为 a_i，则 a_i = 1/2 * a_{i-1} - 1，且 a_n = 1。
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 03：小猴吃桃 Solution 1 lines icon="python"
+    # Solution 1
+    # 递推计算，a_n = 1, a_i = 1/2 * a_{i-1} - 1，得 a_{i-1} = (a_i + 1) * 2
+    m = int(input())
+    for _ in range(m):
+      n = int(input())
+      num = 1
+      for _ in range(n - 1):
+        num = (num + 1) * 2
+      print(num)
+    ```
+    ```python 03：小猴吃桃 Solution 2 lines icon="python"
+    # Solution 2
+    # 根据数列递推公式，直接计算得 a_1 = 3 * (2 ^ (n - 1)) - 2
+    m = int(input())
+    for _ in range(m):
+      n = int(input())
+      print(3 * (1 << (n - 1)) - 2)
+    ```
+  </Tab>
+</Tabs>
+
+## 04：公约数和公倍数（递归）
+
+### 题目描述
+求给定两个数的最大公约数和最小公倍数。
+
+**输入**
+共n+1行；第一行为正整数n；
+下面紧跟n行，每行包括两个正整数，用空格隔开。
+**输出**
+共输出n行；
+每行输出最大公约数和最小公倍数，中间用一个空格隔开。
+
+### 题解
+**思路**
+用辗转相除法求最大公约数，并且最小公倍数 * 最大公约数 = a * b。
+
+**知识点**
+<ResponseField name="迭代" type="第7章 常用的基本算法">
+</ResponseField>
+**代码**
+
+<Tabs>
+  <Tab title="徐志衡">
+    ```python 04：公约数和公倍数（递归） Solution 1 lines icon="python"
+    # Solution 1
+    # 辗转相除法求最大公约数
+    def gcd(a, b):
+      if b == 0:
+        return a
+      else:
+        return gcd(b, a % b)
+
+
+    n = int(input())
+    for _ in range(n):
+      a, b = map(int, input().split())
+      c = gcd(a, b)
+      # 最小公倍数 = a * b / 最大公约数
+      print(c, a * b // c)
+    ```
+  </Tab>
+</Tabs>
+
+
+---
+<div className="text-center text-xs text-gray-400 mt-10">
+  贡献者：徐志衡
+  上次修改：2025/12/01
+</div>
+---
