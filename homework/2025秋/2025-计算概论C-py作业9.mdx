@@ -1,0 +1,191 @@
+## 题集链接
+<Card
+  title="OpenJudge/计算概论C(py)/2025-计算概论C-py作业9"
+  icon="code"
+  href="http://jgcq.openjudge.cn/2025jgchw9"
+  arrow="true"
+  horizontal
+>
+</Card>
+
+## 01：合法昵称
+
+### 题目描述
+Q老师的计概开课了！每位选课的同学都需要在Openjudge上注册账号并修改自己的昵称。
+
+已知Q老师希望同学们将昵称修改为“[院系首字母][10位学号][姓名首字母]”的格式，并且所有字母均采用小写。
+
+现在有n个Openjudge上的昵称，请你输出里面的合法昵称。
+
+### 题解
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 01：合法昵称 lines icon="python"
+    n = int(input())
+    import re
+    m = r"^[a-z]{2}[0-9]{10}[a-z]{2,}$"
+    for i in range(n):
+        s = input()
+        h = re.findall(m, s)
+        if len(h) == 0:
+            continue
+        else:
+            print(h[0])
+    ```
+  </Tab>
+</Tabs>
+
+## 02：找出所有整数
+
+### 题目描述
+给一段文字，可能有中文，把里面的所有非负整数都找出来，不需要去掉前导0。如果碰到 "012.34"这样的就应该找出两个整数 012和34,碰到 0.050,就找出 0和050
+
+### 题解
+
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 02：找出所有整数 lines icon="python"
+    import re
+
+    m = r"[0-9]{1,}"
+
+    while True:
+        try:
+            s = input()
+            lst = re.findall(m,s)
+            for x in lst:
+                print(x)
+        except:
+            break
+    ```
+  </Tab>
+</Tabs>
+
+## 03：统计数字字符个数
+
+### 题目描述    
+输入一行字符，统计出其中数字字符的个数。
+ 
+### 题解
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 03：统计数字字符个数 lines icon="python"
+    s = input()
+    import re
+    m = r"[0-9]{1}"
+    result = re.findall(m, s)
+    print(len(result))
+    ```
+  </Tab>
+</Tabs>
+
+## 04：找出小于100的整数
+
+### 题目描述
+有给定的两行输入，在每一行的输入中提取在[0,100)内的整数(不包括100)并依次输出。注意要排除负数
+
+### 题解
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 04：找出小于100的整数 Solution 1 lines icon="python"
+    import re
+    m = r"(^|[^0-9-])(\d{1,2})([^0-9]|$)"
+    for i in range(2):
+            s = input()
+            lst = re.findall(m,s)
+            for x in lst:
+                print(x[1])
+    ```
+  </Tab>
+</Tabs>
+
+## 05：密码判断
+
+### 题目描述
+用户密码的格式是： 1） 以大写或小写字母开头 2) 至少要有8个字符，最长不限 3) 由字母、数字、下划线或 '-' 组成 输入若干字符串，判断是不是符合密码的条件。如果是，输出 yes 如果不是，输出 no
+
+### 题解
+
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 05：密码判断 lines icon="python"
+    import re
+    m = r"^[a-zA-Z][a-zA-Z0-9_-]{7,}$"
+    while True:
+        try:
+            s = input()
+            if re.match(m,s) != None:
+                print("yes")
+            else:
+                print("no")
+        except:
+            break
+    ```
+  </Tab>
+</Tabs>
+
+## 06：寻找h3
+
+### 题目描述    
+程序填空，输出指定结果  
+
+### 题解
+
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 06：寻找h3 lines icon="python"
+    import re
+    m = \
+    r"<h3>(.*?)</h3>"
+    for x in  re.findall(m,"cdef<h3>abd</h3><h3>bcK</h3><h3>123</h3>KJM"):
+        print(x)
+    ```
+  </Tab>
+</Tabs>
+
+## 07：找$<>$中的数
+
+### 题目描述    
+练习字典的相关操作。首先读入一些作为键值对的元素存入一个字典 D；再读入一些作为键值对的元素，如 x1 y1, x2 y2；最后读入一个值 y3。对字典 D 执行下列操作。
+    
+
+### 题解
+
+**代码**  
+
+<Tabs>
+  <Tab title="陈旭峥">
+    ```python 07：找<>中的数 lines icon="python"
+    n = int(input())
+    import re
+    m = r"<(0|[1-9][0-9]{0,2})>"
+    for i in range(n):
+        s = input()
+        result = re.findall(m, s)
+        if len(result) == 0:
+            print("NONE")
+        else:
+            print(*result)
+    ```
+  </Tab>
+</Tabs>
+
+
+---
+<div className="text-center text-xs text-gray-400 mt-10">
+  贡献者：陈旭峥
+  上次修改：2025/11/30
+</div>
+---
